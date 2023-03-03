@@ -1,0 +1,126 @@
+// Classifier Variable
+ let classifier;
+ // Model URL
+ let imageModelURL = 'https://teachablemachine.withgoogle.com/models/cvcAQLDvj/';
+ 
+
+ // Video
+ let video;
+ let flippedVideo;
+ // To store the classification
+ let label = "";
+
+
+let hair1, hair2, hair3, hair4, hair5;
+let tracker
+let positions;
+
+let capture;
+let button;
+let c;
+
+
+ // Load the model first
+ function preload() {
+   classifier = ml5.imageClassifier(imageModelURL + 'model.json');
+   hair1 = loadImage('hair1.png');
+   hair2 = loadImage('hair2.png');
+   hair3 = loadImage('hair3.png');
+   hair4 = loadImage('hair4.png');
+   hair5 = loadImage('hair5.png');
+ }
+
+ function setup() {
+   createCanvas(windowWidth,windowHeight);
+   // Create the video
+   video = createCapture(VIDEO);
+   video.size(windowWidth, windowHeight);
+   video.hide();
+
+   flippedVideo = ml5.flipImage(video);
+   // Start classifying
+   classifyVideo();
+
+   capture = createCapture(VIDEO);
+   capture.hide();
+   
+   button = createButton('Save Pic');
+   button.position(30, height - 40);
+   button.mousePressed(takePic);
+
+   
+     // load clmtrackr functions:
+ tracker = new clm.tracker(); // create a new clmtrackr object
+ tracker.init(); // initialize the object
+   tracker.start(video.elt); // start tracking the video element capture.elt
+ }
+
+ function draw() {
+   background(0);
+   // Draw the video
+   image(flippedVideo, 0, 0);
+
+   
+   // Draw the label
+   fill(255);
+   textSize(16);
+   textAlign(CENTER);
+   text(label, width / 2, height - 4);
+   
+   
+   //tracker
+    positions = tracker.getCurrentPosition(); // updates the tracker with current positions
+   // console.log(positions);
+       
+ // draw dots + numbers
+ // noStroke();
+
+ for (let i = 0; i < positions.length; i++) {
+
+   if (label === "Class 1") {
+    image(hair1, positions[0][0]-200, positions[14][1]-400, 800, 800);
+  }
+
+   if (label === "Class 2") {
+    image(hair2, positions[0][0]-200, positions[14][1]-400, 800, 800);
+  }
+
+   if (label === "Class 3") {
+    image(hair3, positions[0][0]-200, positions[14][1]-400, 800, 800);
+  }
+  if (label === "Class 4") {
+    image(hair4, positions[0][0]-200, positions[14][1]-400, 800, 800);
+  }
+
+  if (label === "Class 5") {
+    image(hair5, positions[0][0]-200, positions[14][1]-400, 800, 800);
+  }
+}
+ 
+ }
+
+ // Get a prediction for the current video frame
+ function classifyVideo() {
+   flippedVideo = ml5.flipImage(video)
+   classifier.classify(flippedVideo, gotResult);
+   flippedVideo.remove();
+
+ }
+
+ // When we get a result
+ function gotResult(error, results) {
+   // If there is an error
+   if (error) {
+     console.error(error);
+     return;
+   }
+   // The results are in an array ordered by confidence.
+   // console.log(results[0]);
+   label = results[0].label;
+   // Classifiy again!
+   classifyVideo();
+ }
+
+ function takePic() {
+  saveCanvas(c, 'myCanvas', 'jpg');
+}
