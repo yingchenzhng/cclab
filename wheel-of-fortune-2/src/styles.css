@@ -1,0 +1,115 @@
+html, body{
+  margin: 0px;
+  background-image: linear-gradient(to bottom left, #eeaeca, #94bbe9 );
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1{
+  color: #000000;
+  font-family: 'Righteous', sans-serif;
+  margin: 40px auto;
+  text-align: center;
+}
+
+body {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
+.phone {
+  text-align: center;
+  margin-top: 150px;
+  }
+  .phone_image {
+    width: 50%;
+  }
+
+
+#wheelOfFortune {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+#wheel {
+  display: block;
+}
+
+#spin {
+  font-family: 'Righteous', sans-serif;
+  user-select: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  width: 30%;
+  height: 25%;
+  margin: -15%;
+  background: #fff;
+  color: #fff;
+  box-shadow: 0 0 0 8px currentColor, 0 0px 15px 5px rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  transition: 0.8s;
+}
+
+#spin::after {
+  content: '';
+  position: absolute;
+  top: -17px;
+  border: 10px solid transparent;
+  border-bottom-color: currentColor;
+  border-top: none;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+  color: #fff;
+}
+
+body {
+  background-image: url(volume-off-solid.svg);
+}
+
+.phone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999; /* bring the image to the front */
+}
+
+.phone_image {
+  max-width: 100%;
+  height: auto;
+}
+
+.btn {
+  z-index: 20;
+}
+
+.player {
+  text-align: center;
+  margin-top: 150px;
+  }
+  .player_image {
+  height: 70vh;
+  }
